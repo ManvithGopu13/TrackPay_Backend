@@ -53,14 +53,14 @@ exports.updateLend = async (req, res) => {
   const { id } = req.params;
   const { amount, interestRate, interestType, period, status, description } =
     req.body;
-
+  console.log(`${id}, ${description}`)
   try {
     const lend = await Lend.findOneAndUpdate(
       { _id: id, user: req.user.id }, // Ensure only lends owned by the user can be updated
       { amount, interestRate, interestType, period, status, description },
       { new: true }
     );
-
+    
     if (!lend) {
       return res.status(404).json({ message: "Lend not found" });
     }

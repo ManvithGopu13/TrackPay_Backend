@@ -5,6 +5,7 @@ const passport = require("passport");
 
 const lendingRoutes = require("./routes/lendRoutes");
 const authRoutes = require("./routes/authRoutes");
+const transRoutes = require("./routes/transroutes");
 require("dotenv").config();
 
 // Initialize the app
@@ -33,6 +34,7 @@ app.use(passport.session());
 // Routes
 app.use("/api/lending", lendingRoutes);
 app.use("/api/authentication", authRoutes);
+app.use("/api/transaction", transRoutes);
 
 // console.log("lendingController:", require("../controllers/lendingController"));
 

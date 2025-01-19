@@ -14,14 +14,16 @@ const TransactionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now, // Default to the current timestamp
   },
-  ref_no: {
+  refNo: {
     type: String,
-    unique: true,
+    // unique: true,
     // required: true, // Ensures each transaction has a unique reference number
+    default: null, // Allows `null` values
+    sparse: true,  // Ensures the unique index (if recreated) ignores `null` values
   },
   type: {
     type: String,
-    enum: ["debit", "credit"], // "debit" or "credit" only
+    enum: ["Debit", "Credit"], // "debit" or "credit" only
     required: true,
   },
   description: {
@@ -35,9 +37,10 @@ const TransactionSchema = new mongoose.Schema({
     required: true,
   },
   category_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category", // Links to the Category model
-    required: true,
+    type: String,
+    // ref: "Category", // Links to the Category model
+    // required: true,
+    default: null,
   },
   books: [
     {
@@ -50,10 +53,10 @@ const TransactionSchema = new mongoose.Schema({
     type: String,
     default: null, // "To" or "from" person
   },
-  meta_data: {
-    type: mongoose.Schema.Types.Mixed, // JSON for additional details
-    default: null,
-  },
+  // meta_data: {
+  //   type: mongoose.Schema.Types.Mixed, // JSON for additional details
+  //   default: null,
+  // },
 });
 
 module.exports = mongoose.model("Transaction", TransactionSchema);

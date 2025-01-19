@@ -3,7 +3,8 @@ const Book = require("../models/Book");
 // Add a new book
 exports.addBook = async (req, res) => {
   const { name, description, user_id } = req.body;
-
+  console.log(`${req.name}`)
+  console.log(`${name}, ${description}, ${user_id}`)
   if (!name || !user_id) {
     return res.status(400).json({ message: "Book name and user_id are required" });
   }

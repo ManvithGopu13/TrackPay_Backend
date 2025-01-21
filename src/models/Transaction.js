@@ -42,12 +42,10 @@ const TransactionSchema = new mongoose.Schema({
     // required: true,
     default: null,
   },
-  books: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Book", // Links to the Book model (one or more books)
-    },
-  ],
+  book: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Book", // Links to the Book model (one or more books)
+  },
   // Optional fields
   associated_person: {
     type: String,

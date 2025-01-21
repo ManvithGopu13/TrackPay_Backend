@@ -2,12 +2,12 @@ const Transaction = require("../models/Transaction");
 
 // Add a new transaction
 exports.addTransaction = async (req, res) => {
-  const { amount, date, refNo, type, description, user_id, category_id, books, associated_person } = req.body;
+  const { amount, date, refNo, type, description, user_id, category_id, book, associated_person } = req.body;
   // console.log("Entered add transaction")
   if (!amount || !type || !user_id || !category_id) {
     return res.status(400).json({ message: "Amount, type, user_id, and category_id are required" });
   }
-  console.log(`${amount}, ${date}, ${refNo}, ${type}, ${description}, ${user_id}, ${category_id}, ${books}, ${associated_person}`)
+  console.log(`${amount}, ${date}, ${refNo}, ${type}, ${description}, ${user_id}, ${category_id}, ${book}, ${associated_person}`)
   try {
 
     // Check for duplicate transactions
@@ -26,7 +26,7 @@ exports.addTransaction = async (req, res) => {
       description,
       user_id,
       category_id,
-      books, // Array of book IDs
+      book,
       associated_person,
     });
 
@@ -49,7 +49,7 @@ exports.getTransactions = async (req, res) => {
   try {
     const transactions = await Transaction.find({ user_id })
       .populate("category_id", "name description") // Populate category details
-      .populate("books", "name description"); // Populate book details
+      // .populate("book", "name description"); // Populate book details
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ message: "Error fetching transactions", error });
